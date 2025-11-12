@@ -1,16 +1,20 @@
-text.usetex: True
-text.latex.preamble: \usepackage{amsmath}\usepackage{amssymb}
+text.usetex: False
+mathtext.fontset: stix
+# text.usetex: True
+# text.latex.preamble: \usepackage{amsmath}\usepackage{amssymb}
+
 font.family: serif
 font.serif: Times
-ytick.labelsize: 8.5
-xtick.labelsize: 8.5
-figure.titlesize: 9.5
-figure.labelsize: 9.5
-axes.labelsize: 8.5
-axes.titlesize: 9.5
+ytick.labelsize: 8.
+xtick.labelsize: 8.
+figure.titlesize: 9. # Caption size in A&A is 9 pt, body text is 10 pt
+figure.labelsize: 8.
+axes.labelsize: 8.
+axes.titlesize: 9.
 # axes.xmargin: 0
-legend.fontsize: 8.5
+legend.fontsize: 8.
 legend.framealpha: 0.3
+legend.fancybox: False
 
 axes.prop_cycle: cycler('color', ['648FFF', '785EF0', 'DC267F', 'FE6100', 'FFB000'])
 
@@ -33,5 +37,5 @@ figure.autolayout: True
 
 savefig.bbox: tight # Default is standard
 savefig.format: pdf # Default is png
-savefig.dpi: 400 # Minimum is 300
+savefig.dpi: 300 # Minimum is 300
 pdf.compression: 2 # Default is 3

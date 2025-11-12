@@ -1,81 +1,103 @@
 import matplotlib.pyplot as plt  # type: ignore
 import os
 import yaml
-from .jbuilder import Journal, yaml_filename, assets_dir
+from .stylebuilder import Style, Journal, assets_dir, builtin_yaml_filename, user_yaml_filename, user_style_dir
 
 # --- Constants ---
 golden = (1 + 5**0.5) / 2  # golden ratio
 pt = 1 / 72.27             # points to inches
 cm = 1 / 2.54              # centimeters to inches
 
-_default_journal = "aanda"
-_current_journal = None
+
+# --- Defaults ---
+_default_style = "aanda"
+_current_style = None
+
 
 # --- Registry ---
-def _load_journal_registry():
-    with open(yaml_filename, "r") as file:
-        raw = yaml.safe_load(file)
-    return {
-        name: Journal(
-            name=name,
-            onecol=entry.get("onecol"),
-            twocol=entry.get("twocol"),
-            mplstyle=assets_dir.joinpath(entry.get("mplstyle")).as_posix() if entry.get("mplstyle") else None,
-        )
-        for name, entry in raw.items()
-    }
+def _load_style_registry():
+    # Load built-in styles
+    builtin = {}
+    if builtin_yaml_filename.exists():
+        with open(builtin_yaml_filename, "r") as file:
+            raw = yaml.safe_load(file) or {}
+        for name, entry in raw.items():
+            builtin[name] = Style(
+                name=name,
+                onecol=entry.get("onecol"),
+                twocol=entry.get("twocol"),
+                mplstyle=assets_dir.joinpath(entry.get("mplstyle")).as_posix() if entry.get("mplstyle") else None,
+            )
+    # Load user styles (override built-ins)
+    user = {}
+    if os.path.exists(user_yaml_filename):
+        with open(user_yaml_filename, "r") as file:
+            raw = yaml.safe_load(file) or {}
+        for name, entry in raw.items():
+            user[name] = Style(
+                name=name,
+                onecol=entry.get("onecol"),
+                twocol=entry.get("twocol"),
+                mplstyle=os.path.join(user_style_dir, entry.get("mplstyle")) if entry.get("mplstyle") else None,
+            )
+    # User styles override built-ins
+    registry = {**builtin, **user}
+    return registry
 
-_journal_registry = _load_journal_registry()
+_style_registry = _load_style_registry()
 
-def available_journals():
-    """Return a list of available journals."""
-    return list(_journal_registry.keys())
 
-def get_journal(journal=None):
-    """Return a Journal instance (from string or directly)."""
-    if isinstance(journal, Journal):
-        return journal
-    if journal is not None:
-        if journal not in _journal_registry:
-            raise ValueError(f"Journal '{journal}' not found. Available: {available_journals()}")
-        return _journal_registry[journal]
-    return _journal_registry[_default_journal]
+def available_styles():
+    """Return a list of available styles."""
+    return list(_style_registry.keys())
+
+def get_style(style=None):
+    """Return a Style instance (from string or directly)."""
+    if isinstance(style, Style):
+        return style
+    if style is not None:
+        if style not in _style_registry:
+            raise ValueError(f"Style '{style}' not found. Available: {available_styles()}")
+        return _style_registry[style]
+    return _style_registry[_default_style]
+
+def set_style(style=None):
+    """Apply the style. Does nothing if already set."""
+    global _current_style
+    s = get_style(style)
+    if _current_style == s.name:
+        return
+    if s.mplstyle is not None:
+        plt.style.use(s.mplstyle)
+    _current_style = s.name
 
 def set_journal(journal=None):
-    """Apply the journal's style. Does nothing if already set."""
-    global _current_journal
-    j = get_journal(journal)
-    if _current_journal == j.name:
-        return
-    
-    if j.mplstyle is not None:
-        if os.path.isabs(j.mplstyle):
-            style_path = j.mplstyle
-        else:
-            style_path = str(assets_dir.joinpath(j.mplstyle))
-        plt.style.use(style_path)
-    _current_journal = j.name
+    """Apply the journal style. Does nothing if already set."""
+    return set_style(journal)
 
-def restore_matplotlib_default_style():
+
+def restore():
     """Restore matplotlib's default style."""
     plt.style.use('default')
 
-def setup_figsize(journal=None, twocols=False, height_ratio=None):
-    """Return (width, height) in inches for the journal."""
-    j = get_journal(journal)
-    set_journal(j)
-    width = j.twocol if twocols else j.onecol
+
+def setup_figsize(style=None, twocols=False, height_ratio=None):
+    """Return (width, height) in inches for the style."""
+    s = get_style(style)
+    set_style(s)
+    width = s.twocol if twocols else s.onecol
     if width is None:
-        raise ValueError(f"Journal '{j.name}' does not support {'two' if twocols else 'one'}-column figures.")
+        raise ValueError(f"Style '{s.name}' does not support {'two' if twocols else 'one'}-column figures.")
     height = width / golden if height_ratio is None else width * height_ratio
     return width, height
 
-def figure(journal=None, twocols=False, height_ratio=None, **kwargs):
-    """Create a figure with journal-appropriate dimensions."""
-    width, height = setup_figsize(journal, twocols, height_ratio)
+
+def figure(style=None, twocols=False, height_ratio=None, journal=None, **kwargs):
+    """Create a figure with style-appropriate dimensions."""
+    width, height = setup_figsize(style or journal, twocols, height_ratio)
     return plt.figure(figsize=(width, height), **kwargs)
 
-def subplots(journal=None, twocols=False, height_ratio=None, **kwargs):
-    """Create subplots with journal-appropriate dimensions."""
-    width, height = setup_figsize(journal, twocols, height_ratio)
+def subplots(style=None, twocols=False, height_ratio=None, journal=None, **kwargs):
+    """Create subplots with style-appropriate dimensions."""
+    width, height = setup_figsize(style or journal, twocols, height_ratio)
     return plt.subplots(figsize=(width, height), **kwargs)
