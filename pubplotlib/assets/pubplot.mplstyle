@@ -8,7 +8,7 @@ figure.titlesize: 10
 figure.labelsize: 10
 axes.labelsize: 9
 axes.titlesize: 10
-axes.xmargin: 0
+# axes.xmargin: 0
 legend.fontsize: 9
 legend.framealpha: 0.3
 
