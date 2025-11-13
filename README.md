@@ -1,4 +1,4 @@
-# PubPlotLib
+# PubPlotLib 🎨
 
 [![PyPI version](https://badge.fury.io/py/pubplotlib.svg)](https://badge.fury.io/py/pubplotlib)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -24,34 +24,36 @@ You can install PubPlotLib via pip:
 pip install pubplotlib
 ```
 
+
+
+
+
+
+
 ## Quick Start
 
 Creating a journal-styled figure is as simple as importing `pubplotlib` and using its `subplots` function.
 
 ```python
-import numpy as np
 import matplotlib.pyplot as plt
 import pubplotlib as pplt
 
-# 1. Set your target style (optional, can be done per-figure)
+# Set your target style (can be also done per-figure)
 pplt.set_style('apj')
 
-# 2. Create data
-x = np.linspace(0.1, 10, 500)
-y = np.sin(x) / x
-
-# 3. Create a figure using pubplotlib's wrapper
+# Create a figure using pubplotlib's wrapper
 fig, ax = pplt.subplots()
-ax.plot(x, y)
-ax.set_xlabel("Time (s)")
-ax.set_ylabel("Signal")
+ax.plot(...)
 
-# 4. Customize ticks and formatters for a professional look
+# Customize ticks and formatters for a professional look
 pplt.set_ticks(ax)
 pplt.set_formatter(ax)
 
 plt.show()
 ```
+
+You can set a style globally for all figures using `pplt.set_style('style_name')`, or specify a style directly inside plots by passing the `style` argument to `pplt.subplots()` or `pplt.figure()`.
+
 
 ## Usage
 
@@ -80,20 +82,20 @@ ax.plot(...)
 
 #### Using Matplotlib's Default Figure and Subplots with Custom Sizing
 
-We’ve hidden the `figsize` keyword in our API—because that’s the one thing that always messes up your image size when rendered in a paper!  
+We’ve deliberately hidden the `figsize` keyword in our API—because that’s the one thing that always messes up your image size when rendered in a paper!  
 Instead, we set the figure width for you, and the `height_ratio` lets you decide how tall your image should be.
 
 A couple of important notes:
 1. **Don’t exceed the figure canvas!**  
-   Adding extra axes or text outside the Matplotlib limits (beyond (1, 1)) will enlarge the image and ruin our careful setup for correct font sizes. If you need more axes, create a subgrid within your canvas and plot there.
+   Adding extra axes or text outside the Matplotlib limits (beyond (1, 1)) will enlarge the image and ruin our careful setup for correct font sizes. If you need more axes, create a subgrid within your canvas not going outsiede the default.
 2. **Using LaTeX?**  
    Don’t specify the width or height in `\includegraphics`! The figure is already sized perfectly. If you override this, you’ll corrupt the font sizes.  
    Use a plain approach like:
    ```latex
    \begin{figure}
      \centering
-     \includegraphics{image.pdf}
-     \caption{Hello World}
+     \includegraphics{image.pdf} % No [width=\textwidth] or similar!
+     \caption{Hello World!}
    \end{figure}
    ```
 
