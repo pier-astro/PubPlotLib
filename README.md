@@ -18,15 +18,19 @@
 
 > **Note:** PubPlotLib requires Matplotlib version **3.2 or newer** for style support.
 
-You can install PubPlotLib via pip:
+You can install PubPlotLib via pip (not yet available):
 
 ```bash
 pip install pubplotlib
 ```
 
+Or install the latest version from GitHub cloning the reposity on your machine:
 
-
-
+```bash
+git clone https://github.com/pier-astro/PubPlotLib.git
+cd PubPlotLib
+pip install .
+```
 
 
 
@@ -82,7 +86,7 @@ ax.plot(...)
 
 #### Using Matplotlib's Default Figure and Subplots with Custom Sizing
 
-We’ve deliberately hidden the `figsize` keyword in our API—because that’s the one thing that always messes up your image size when rendered in a paper!  
+We’ve deliberately hidden the `figsize` keyword in our API—because that’s the devil that always messes up your image size when rendered in a paper!
 Instead, we set the figure width for you, and the `height_ratio` lets you decide how tall your image should be.
 
 A couple of important notes:
@@ -99,7 +103,7 @@ A couple of important notes:
    \end{figure}
    ```
 
-If you want to customize your plot, you can always use the default Matplotlib `figure` and `subplots` functions and specify the figure size yourself.  
+If you still desire evil and you want to customize your plot, you can always use the default Matplotlib `figure` and `subplots` functions and specify the figure size yourself.  
 To help, we provide the `onecol` and `twocol` attributes so you can shape your `figsize`:
 
 ```python
@@ -113,7 +117,7 @@ plt.show()
 ```
 
 And for the truly bold:  
-PubPlotLib exposes the Golden Ratio as `pplt.golden`, so you can size your figures like Leonardo da Vinci would have—just use `figsize=(journal.onecol, journal.onecol/pplt.golden)` (which, by the way, is our default)!
+PubPlotLib exposes the **<span style="color:gold;">Golden Ratio</span>** as `pplt.golden`, so you can size your figures like Leonardo da Vinci would have—just use `figsize=(journal.onecol, journal.onecol/pplt.golden)` *(which, by the way, is our default)*!
 
 
 ### Axis Styling: Better Ticks and Formatters
