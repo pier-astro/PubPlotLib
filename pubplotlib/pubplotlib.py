@@ -59,7 +59,9 @@ def get_style(style=None):
         if style not in _style_registry:
             raise ValueError(f"Style '{style}' not found. Available: {available_styles()}")
         return _style_registry[style]
-    return _style_registry[_default_style]
+    # Use current style if set, otherwise fall back to default
+    active_style = _current_style if _current_style is not None else _default_style
+    return _style_registry[active_style]
 
 def set_style(style=None):
     """Apply the style. Does nothing if already set."""

@@ -1,18 +1,16 @@
 # BUILD SYSTEM
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "setuptools_scm>=8.0"]
 build-backend = "setuptools.build_meta"
 
 # METADATA FOR THE PROJECT
 [project]
 name = "pubplotlib"
-version = "0.1.2"
 description = "Make publication friendly plots easy!"
 authors = [
     { name = "Pierpaolo Condò", email = "pierpaolo.condo@gmail.com" },
     { name = "Michele Berretti", email = "michele.berretti1999@gmail.com" },
     ]
-
 readme = "README.md"
 requires-python = ">=3.2"
 classifiers = [
@@ -23,11 +21,10 @@ classifiers = [
 license = { file = "LICENSE" }
 keywords = ["matplotlib", "publication", "plot", "figure", "science"]
 dependencies = [
-    "matplotlib>=3.4",   # for style and formatting features
-    "PyYAML>=5.3",       # for YAML file loading
+    "matplotlib>=3.4",
+    "PyYAML>=5.3",
 ]
 
-# This section links back to your GitHub repo
 [project.urls]
 Homepage = "https://github.com/pier-astro/PubPlotLib"
 Issues = "https://github.com/pier-astro/PubPlotLib/issues"
@@ -37,3 +34,7 @@ where = ["."]
 
 [tool.setuptools.package-data]
 pubplotlib = ["assets/*"]
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "node-and-date"
