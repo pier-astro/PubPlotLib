@@ -7,13 +7,16 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import version from package
-from pubplotlib import __version__
+try:
+    from importlib.metadata import version
+    release = version("pubplotlib")
+except Exception:
+    release = "0.3.2"  # Fallback
 
 # Project information
 project = 'PubPlotLib'
 copyright = '2024, Pierpaolo Condò, Michele Berretti'
 author = 'Pierpaolo Condò, Michele Berretti'
-release = __version__
 
 # General configuration
 extensions = [
