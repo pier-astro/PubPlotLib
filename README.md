@@ -107,7 +107,7 @@ If you still desire evil and you want to customize your plot, you can always use
 To help, we provide the `onecol` and `twocol` attributes so you can shape your `figsize`:
 
 ```python
-journal = pplt.get_style()
+journal = pplt.style.get()
 print("One column width:", journal.onecol)
 print("Two column width:", journal.twocol)
 
