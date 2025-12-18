@@ -45,10 +45,6 @@ Repository = "https://github.com/pier-astro/PubPlotLib.git"
 Issues = "https://github.com/pier-astro/PubPlotLib/issues"
 Changelog = "https://github.com/pier-astro/PubPlotLib/releases"
 
-# Dynamic version from pubplotlib/version.py
-[tool.setuptools.dynamic]
-version = {attr = "pubplotlib.__version__"}
-
 [tool.setuptools.packages.find]
 where = ["."]
 
