@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 # METADATA FOR THE PROJECT
 [project]
 name = "pubplotlib"
-dynamic = ["version"]
+version = "0.3.0"
 description = "Make publication friendly plots easy!"
 authors = [
     { name = "Pierpaolo Condò", email = "pierpaolo.condo@gmail.com" },
