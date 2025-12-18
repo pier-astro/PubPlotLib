@@ -83,10 +83,23 @@ def restore():
     plt.style.use('default')
 
 
+def _apply_style_local(style=None):
+    """Apply a style locally without changing global state."""
+    s = get_style(style)
+    if s.mplstyle is not None:
+        plt.style.use(s.mplstyle)
+    return s
+
+
 def setup_figsize(style=None, twocols=False, height_ratio=None):
     """Return (width, height) in inches for the style."""
-    s = get_style(style)
-    set_style(s)
+    # If style is explicitly provided, apply it locally without changing global state
+    # Otherwise, use the current global style
+    if style is not None:
+        s = _apply_style_local(style)
+    else:
+        s = _apply_style_local()  # Uses current global style
+    
     width = s.twocol if twocols else s.onecol
     if width is None:
         raise ValueError(f"Style '{s.name}' does not support {'two' if twocols else 'one'}-column figures.")

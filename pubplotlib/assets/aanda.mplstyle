@@ -5,6 +5,7 @@ mathtext.fontset: stix
 
 font.family: serif
 font.serif: Times
+font.size:  9.0
 ytick.labelsize: 8.
 xtick.labelsize: 8.
 figure.titlesize: 9. # Caption size in A&A is 9 pt, body text is 10 pt
