@@ -1,8 +1,4 @@
-try:
-    from importlib.metadata import version
-    __version__ = version("pubplotlib")
-except Exception:
-    __version__ = "0.3.0"  # fallback for development
+from ._version import __version__
 
 from .pubplotlib import (
     golden, pt, cm,

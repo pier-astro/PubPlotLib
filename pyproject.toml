@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 # METADATA FOR THE PROJECT
 [project]
 name = "pubplotlib"
-version = "0.3.2"
+dynamic = ["version"]
 description = "Make publication friendly plots easy!"
 authors = [
     { name = "Pierpaolo Condò", email = "pierpaolo.condo@gmail.com" },
@@ -44,6 +44,9 @@ Documentation = "https://pubplotlib.readthedocs.io"
 Repository = "https://github.com/pier-astro/PubPlotLib.git"
 Issues = "https://github.com/pier-astro/PubPlotLib/issues"
 Changelog = "https://github.com/pier-astro/PubPlotLib/releases"
+
+[tool.setuptools.dynamic]
+version = {attr = "pubplotlib._version.__version__"}
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -7,11 +7,8 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import version from package
-try:
-    from importlib.metadata import version
-    release = version("pubplotlib")
-except Exception:
-    release = "0.3.2"  # Fallback
+from pubplotlib._version import __version__
+release = __version__
 
 # Project information
 project = 'PubPlotLib'
