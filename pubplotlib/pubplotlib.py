@@ -81,6 +81,8 @@ def set_journal(journal=None):
 def restore():
     """Restore matplotlib's default style."""
     plt.style.use('default')
+    global _current_style
+    _current_style = None
 
 
 def _apply_style_local(style=None):
@@ -116,3 +118,97 @@ def subplots(style=None, twocols=False, height_ratio=None, journal=None, **kwarg
     """Create subplots with style-appropriate dimensions."""
     width, height = setup_figsize(style or journal, twocols, height_ratio)
     return plt.subplots(figsize=(width, height), **kwargs)
+
+
+# --- Style Manager (mimics matplotlib.style interface) ---
+class _StyleManager:
+    """
+    Manager for style operations, providing a matplotlib-like interface.
+    
+    Mimics matplotlib.style.use() syntax while integrating with PubPlotLib's
+    style framework.
+    """
+    
+    def use(self, style=None):
+        """
+        Apply a style globally. Mimics matplotlib.style.use() syntax.
+        
+        Parameters
+        ----------
+        style : str or Style, optional
+            Name of the style to apply, or a Style instance.
+            
+        Examples
+        --------
+        >>> pplt.style.use('aanda')
+        """
+        return set_style(style)
+    
+    def available(self):
+        """
+        Return list of available styles.
+        
+        Returns
+        -------
+        list
+            Names of all available styles.
+            
+        Examples
+        --------
+        >>> pplt.style.available()
+        ['aanda', 'apj', 'presentation']
+        """
+        return available_styles()
+    
+    def get(self, style=None):
+        """
+        Get a Style instance.
+        
+        Parameters
+        ----------
+        style : str or Style, optional
+            Name of the style or a Style instance.
+            If None, returns the current active style.
+            
+        Returns
+        -------
+        Style
+            The requested Style instance.
+            
+        Examples
+        --------
+        >>> s = pplt.style.get('aanda')
+        >>> print(s.onecol, s.twocol)
+        """
+        return get_style(style)
+    
+    def current(self):
+        """
+        Get the name of the currently active style.
+        
+        Returns
+        -------
+        str
+            Name of the current style.
+            
+        Examples
+        --------
+        >>> pplt.style.current()
+        'aanda'
+        """
+        global _current_style
+        return _current_style if _current_style is not None else _default_style
+    
+    def restore(self):
+        """
+        Restore matplotlib's default style.
+        
+        Examples
+        --------
+        >>> pplt.style.restore()
+        """
+        return restore()
+
+
+# Create the style namespace
+style = _StyleManager()

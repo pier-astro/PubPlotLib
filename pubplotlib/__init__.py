@@ -1,9 +1,11 @@
+from .version import __version__
+
 from .pubplotlib import (
     golden, pt, cm,
     set_style, get_style,
     available_styles, restore,
     setup_figsize, figure, subplots,
-    set_journal
+    set_journal, style
 )
 from .formatter import set_formatter
 from .ticksetter import set_ticks

@@ -43,7 +43,7 @@ import matplotlib.pyplot as plt
 import pubplotlib as pplt
 
 # Set your target style (can be also done per-figure)
-pplt.set_style('apj')
+pplt.style.use('apj')
 
 # Create a figure using pubplotlib's wrapper
 fig, ax = pplt.subplots()
@@ -56,7 +56,7 @@ pplt.set_formatter(ax)
 plt.show()
 ```
 
-You can set a style globally for all figures using `pplt.set_style('style_name')`, or specify a style directly inside plots by passing the `style` argument to `pplt.subplots()` or `pplt.figure()`.
+You can set a style globally for all figures using `pplt.style.use('style_name')`, or specify a style directly inside plots by passing the `style` argument to `pplt.subplots()` or `pplt.figure()`.
 
 
 ## Usage

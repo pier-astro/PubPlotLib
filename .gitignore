@@ -78,3 +78,7 @@ logs/
 *.tmp
 *.temp
 *.bak
+
+# Local folders only for development and personal documentation
+myexamples/
+mydocs/

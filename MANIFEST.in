@@ -1,0 +1,14 @@
+# Include all necessary package files
+include LICENSE
+include README.md
+include CHANGELOG.md
+recursive-include pubplotlib *.py
+recursive-include pubplotlib/assets *
+recursive-include docs *
+recursive-include examples *.ipynb
+recursive-include fonts *
+
+# Exclude unnecessary files
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude .DS_Store
