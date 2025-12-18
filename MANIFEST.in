@@ -6,9 +6,9 @@ recursive-include pubplotlib *.py
 recursive-include pubplotlib/assets *
 recursive-include docs *
 recursive-include examples *.ipynb
-recursive-include fonts *
 
 # Exclude unnecessary files
+prune fonts
 global-exclude __pycache__
 global-exclude *.py[cod]
 global-exclude .DS_Store

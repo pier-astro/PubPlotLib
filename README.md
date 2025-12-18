@@ -18,7 +18,7 @@
 
 > **Note:** PubPlotLib requires Matplotlib version **3.2 or newer** for style support.
 
-You can install PubPlotLib via pip (not yet available):
+You can install PubPlotLib via pip:
 
 ```bash
 pip install pubplotlib

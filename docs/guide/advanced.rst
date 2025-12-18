@@ -22,8 +22,8 @@ Custom Tick Settings
        direction='in',    # 'in' or 'out'
        top=True,          # Show ticks on top
        right=True,        # Show ticks on right
-       length=5,          # Tick length
-       width=1.0          # Tick width
+       major_length=3.5,  # Major tick length in pt
+       minor_length=1.75, # Minor tick length in pt
    )
 
 Smart Axis Formatters
@@ -48,8 +48,8 @@ Fix scientific notation issues (e.g., "10^0" becoming "1"):
    pplt.set_formatter(ax)  # Applies to both axes
 
    # Or apply to specific axes
-   pplt.set_formatter(ax.xaxis)
-   pplt.set_formatter(ax.yaxis)
+   pplt.set_formatter(ax, axis='x')
+   pplt.set_formatter(ax, axis='y')
 
 Batch Formatting
 ~~~~~~~~~~~~~~~~

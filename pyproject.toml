@@ -50,6 +50,7 @@ version = {attr = "pubplotlib._version.__version__"}
 
 [tool.setuptools.packages.find]
 where = ["."]
+exclude = ["fonts*", "tests*", "docs*", "examples*", "mydocs*", "myexamples*"]
 
 [tool.setuptools.package-data]
 pubplotlib = ["assets/*"]
