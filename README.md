@@ -65,12 +65,31 @@ You can set a style globally for all figures using `pplt.style.use('style_name')
 
 `PubPlotLib` makes it easy to create figures that fit perfectly into your manuscript's columns.
 
-#### Single and Double Column Figures
+#### Single, Double, and Full-Page Column Figures
 
-Use the `twocols=True` argument to create a figure with the width of a double column.
+Use the `twocols=True` argument to create a figure with the width of a double column. For journals with 3 or 4 columns, or when you need the figure to span the entire page width, use the `fullpage=True` option (which has priority over `twocols`).
 
 ```python
+# Single-column (default)
+fig, ax = pplt.subplots(style='aanda')
+ax.plot(...)
+
+# Double-column
 fig, ax = pplt.subplots(style='aanda', twocols=True)
+ax.plot(...)
+
+# Full-page span
+fig, ax = pplt.subplots(style='aanda', fullpage=True)
+ax.plot(...)
+```
+
+#### Partial Width Sub-panels
+
+When you want to compose a full figure from multiple individually saved plot files (e.g. placing three plots side by side via LaTeX), use `width_fraction` to scale the width. This ensures the aspect-ratio or height calculation stays perfectly aligned with its original intended full span:
+
+```python
+# Create a figure that is 1/3 the width of a full page
+fig, ax = pplt.subplots(fullpage=True, width_fraction=0.333)
 ax.plot(...)
 ```
 
@@ -179,6 +198,7 @@ You can easily define and register your own style.
         name="my_style",
         onecol=3.5,          # 3.5 inches wide
         twocol=7.1,          # 7.1 inches wide
+        fullpage=8.5,        # 8.5 inches wide for full page
         mplstyle="my_style.mplstyle"
     )
     ```

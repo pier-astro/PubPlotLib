@@ -79,6 +79,9 @@ logs/
 *.temp
 *.bak
 
+# Presentation Slides
+presentation/
+
 # Local folders only for development and personal documentation
 myexamples/
 mydocs/

@@ -121,6 +121,21 @@ class TestSetupFigsize(unittest.TestCase):
         )
         self.assertAlmostEqual(height, width * 0.5, places=2)
 
+    def test_setup_figsize_fullpage(self):
+        """Test fullpage sizing"""
+        s = pplt.style.get('aanda')
+        expected_width = max(filter(None, [s.onecol, s.twocol, 0]))
+        width, height = pplt.setup_figsize(style='aanda', fullpage=True)
+        self.assertAlmostEqual(width, expected_width, places=2)
+        
+    def test_setup_figsize_width_fraction(self):
+        """Test width fraction sizing"""
+        s = pplt.style.get('aanda')
+        base_width = s.onecol
+        width, height = pplt.setup_figsize(style='aanda', width_fraction=0.5)
+        self.assertAlmostEqual(width, base_width * 0.5, places=2)
+        # Height should be based on base_width, not the fractioned width
+        self.assertAlmostEqual(height, base_width / pplt.golden, places=2)
 
 if __name__ == '__main__':
     unittest.main()

@@ -26,6 +26,7 @@ def _load_style_registry():
                 name=name,
                 onecol=entry.get("onecol"),
                 twocol=entry.get("twocol"),
+                fullpage=entry.get("fullpage"),
                 mplstyle=assets_dir.joinpath(entry.get("mplstyle")).as_posix() if entry.get("mplstyle") else None,
             )
     # Load user styles (override built-ins)
@@ -38,6 +39,7 @@ def _load_style_registry():
                 name=name,
                 onecol=entry.get("onecol"),
                 twocol=entry.get("twocol"),
+                fullpage=entry.get("fullpage"),
                 mplstyle=os.path.join(user_style_dir, entry.get("mplstyle")) if entry.get("mplstyle") else None,
             )
     # User styles override built-ins
@@ -93,7 +95,7 @@ def _apply_style_local(style=None):
     return s
 
 
-def setup_figsize(style=None, twocols=False, height_ratio=None):
+def setup_figsize(style=None, twocols=False, fullpage=False, width_fraction=1.0, height_ratio=None):
     """Return (width, height) in inches for the style."""
     # If style is explicitly provided, apply it locally without changing global state
     # Otherwise, use the current global style
@@ -102,21 +104,33 @@ def setup_figsize(style=None, twocols=False, height_ratio=None):
     else:
         s = _apply_style_local()  # Uses current global style
     
-    width = s.twocol if twocols else s.onecol
-    if width is None:
-        raise ValueError(f"Style '{s.name}' does not support {'two' if twocols else 'one'}-column figures.")
-    height = width / golden if height_ratio is None else width * height_ratio
+    if fullpage:
+        if s.fullpage is not None:
+            base_width = s.fullpage
+        else:
+            base_width = max(filter(None, [s.onecol, s.twocol, 0]))
+            if base_width == 0:
+                base_width = None
+    else:
+        base_width = s.twocol if twocols else s.onecol
+    
+    if base_width is None:
+        raise ValueError(f"Style '{s.name}' does not support the selected layout.")
+        
+    height = base_width / golden if height_ratio is None else base_width * height_ratio
+    width = base_width * width_fraction
     return width, height
 
 
-def figure(style=None, twocols=False, height_ratio=None, journal=None, **kwargs):
+def figure(style=None, twocols=False, fullpage=False, width_fraction=1.0, height_ratio=None, journal=None, **kwargs):
     """Create a figure with style-appropriate dimensions."""
-    width, height = setup_figsize(style or journal, twocols, height_ratio)
+    width, height = setup_figsize(style or journal, twocols, fullpage, width_fraction, height_ratio)
     return plt.figure(figsize=(width, height), **kwargs)
 
-def subplots(style=None, twocols=False, height_ratio=None, journal=None, **kwargs):
+
+def subplots(style=None, twocols=False, fullpage=False, width_fraction=1.0, height_ratio=None, journal=None, **kwargs):
     """Create subplots with style-appropriate dimensions."""
-    width, height = setup_figsize(style or journal, twocols, height_ratio)
+    width, height = setup_figsize(style or journal, twocols, fullpage, width_fraction, height_ratio)
     return plt.subplots(figsize=(width, height), **kwargs)
 
 

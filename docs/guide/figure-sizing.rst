@@ -17,8 +17,28 @@ By default, figures are sized according to the selected style:
 
    # Double-column figure
    fig, ax = pplt.subplots(style='aanda', twocols=True)
+   
+   # Full-page figure (spans the entire page text width)
+   fig, ax = pplt.subplots(style='aanda', fullpage=True)
 
-The width is set automatically, and the height is calculated using the golden ratio.
+The width is set automatically, and the height is calculated using the golden ratio. If a style does not explicitly define a ``fullpage`` width, PubPlotLib will fallback to the largest available column width defined. ``fullpage=True`` takes precedence over ``twocols=True``.
+
+Fractional Widths
+~~~~~~~~~~~~~~~~~
+
+Sometimes you might want to create sub-panels as separate image files and compose them horizontally (e.g. side-by-side) in your final document. Use the ``width_fraction`` parameter (a float from 0 to 1) to scale only the width while leaving the originally calculated height intact:
+
+.. code-block:: python
+
+   import pubplotlib as pplt
+
+   # Creates a figure that is 1/3 the width of a full page, 
+   # but maintains the original height of a full-page figure
+   fig, ax = pplt.subplots(
+       style='aanda', 
+       fullpage=True, 
+       width_fraction=0.333
+   )
 
 Custom Height
 ~~~~~~~~~~~~~

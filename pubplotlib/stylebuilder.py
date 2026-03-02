@@ -114,6 +114,7 @@ class Style:
         name (str): The style's name.
         onecol (Optional[float]): Width of a single column (in inches).
         twocol (Optional[float]): Width of a double column (in inches).
+        fullpage (Optional[float]): Width of a full page (in inches).
         mplstyle (Optional[str]): Path to the associated .mplstyle file.
     """
     def __init__(
@@ -121,11 +122,13 @@ class Style:
         name: str,
         onecol: Optional[float] = None,
         twocol: Optional[float] = None,
+        fullpage: Optional[float] = None,
         mplstyle: Optional[str] = None,
     ):
         self.name = name
         self.onecol = onecol
         self.twocol = twocol
+        self.fullpage = fullpage
         self.mplstyle = mplstyle
 
         # Always store the style filename (not full path)
@@ -136,8 +139,8 @@ class Style:
                 raise FileNotFoundError(f"Style file '{mplstyle}' does not exist.")
             self.mplstyle = style_filename
 
-        if self.onecol is None and self.twocol is None:
-            raise ValueError("At least one of 'onecol' or 'twocol' must be provided.")
+        if self.onecol is None and self.twocol is None and self.fullpage is None:
+            raise ValueError("At least one of 'onecol', 'twocol', or 'fullpage' must be provided.")
 
     def register(self, overwrite: bool = False):
         """
@@ -173,6 +176,8 @@ class Style:
             styles[self.name]["onecol"] = self.onecol
         if self.twocol is not None:
             styles[self.name]["twocol"] = self.twocol
+        if self.fullpage is not None:
+            styles[self.name]["fullpage"] = self.fullpage
         styles[self.name]["mplstyle"] = style_filename  # Will be None if not provided
 
         with open(user_yaml_filename, "w", encoding="utf-8") as f:
@@ -181,7 +186,7 @@ class Style:
     def __repr__(self):
         return (
             f"Style(name={self.name!r}, onecol={self.onecol}, "
-            f"twocol={self.twocol}, mplstyle={self.mplstyle!r})"
+            f"twocol={self.twocol}, fullpage={self.fullpage}, mplstyle={self.mplstyle!r})"
         )
 
 # Alias for backward compatibility
