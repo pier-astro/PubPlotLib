@@ -53,4 +53,4 @@ where = ["."]
 exclude = ["fonts*", "tests*", "docs*", "examples*", "mydocs*", "myexamples*"]
 
 [tool.setuptools.package-data]
-pubplotlib = ["assets/*"]
+pubplotlib = ["assets/*", "assets/fonts/*.ttf", "assets/fonts/*.otf"]
