@@ -1,7 +1,7 @@
 ##
 ## Matplotlib style sheet for the Physical Review journals (APS)
-## Registered as 'prd' (Physical Review D) and 'prl' (Physical Review Letters):
-## both use the same REVTeX 4.2 two-column layout.
+## Registered as 'aps'. All Physical Review journals (PRA-PRE, PRL, PRX, ...)
+## share the same REVTeX 4.2 two-column layout.
 ##
 ## Column widths  : single = 246 pt = 3.40 in (8.65 cm)   [\columnwidth]
 ##                  double = 510 pt = 7.06 in (17.92 cm)  [\textwidth]
@@ -21,7 +21,7 @@
 ##
 ## Usage:
 ##   import pubplotlib as pplt
-##   pplt.style.use('prd')
+##   pplt.style.use('aps')
 ##   fig, ax = pplt.subplots()               # single column
 ##   fig, ax = pplt.subplots(twocols=True)   # double column
 ##

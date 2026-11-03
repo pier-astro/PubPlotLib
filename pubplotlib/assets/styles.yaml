@@ -4,4 +4,13 @@ aanda:
   twocol: 7.243669572436696
 apj:
   mplstyle: apj.mplstyle
-  onecol: 3.3485540334855406
+  onecol: 3.50
+  twocol: 7.10
+jheap:
+  mplstyle: jheap.mplstyle
+  onecol: 3.54
+  twocol: 7.48
+aps:
+  mplstyle: aps.mplstyle
+  onecol: 3.4039020340390205
+  twocol: 7.056870070568701
