@@ -11,7 +11,7 @@ import matplotlib.font_manager as fm
 # Built-in assets
 assets_dir = files("pubplotlib").joinpath("assets")
 builtin_yaml_filename = assets_dir.joinpath("styles.yaml")
-core_styles = ['pubplot.mplstyle', 'aanda.mplstyle', 'apj.mplstyle']
+core_styles = ['pubplot.mplstyle', 'aanda.mplstyle', 'apj.mplstyle', 'jheap.mplstyle', 'aps.mplstyle']
 
 # User config directory
 user_dir = os.path.expanduser("~/.pubplotlib")
@@ -63,8 +63,20 @@ def build_builtin_styles(overwrite: bool = False) -> Dict[str, Dict[str, object]
             "mplstyle": "aanda.mplstyle",
         },
         "apj": {
-            "onecol": 242.0 * pt,
+            "onecol": 3.50,
+            "twocol": 7.10,
             "mplstyle": "apj.mplstyle",
+        },
+        "jheap": {
+            "onecol": 3.54,  # 90 mm
+            "twocol": 7.48,  # 190 mm
+            "mplstyle": "jheap.mplstyle",
+        },
+        # Physical Review journals (REVTeX 4.2 two-column layout)
+        "aps": {
+            "onecol": 246.0 * pt,
+            "twocol": 510.0 * pt,
+            "mplstyle": "aps.mplstyle",
         },
     }
 
