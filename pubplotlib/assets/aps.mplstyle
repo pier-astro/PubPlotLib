@@ -1,0 +1,108 @@
+##
+## Matplotlib style sheet for the Physical Review journals (APS)
+## Registered as 'prd' (Physical Review D) and 'prl' (Physical Review Letters):
+## both use the same REVTeX 4.2 two-column layout.
+##
+## Column widths  : single = 246 pt = 3.40 in (8.65 cm)   [\columnwidth]
+##                  double = 510 pt = 7.06 in (17.92 cm)  [\textwidth]
+## Body text size : 10 pt
+## Caption size   :  9 pt (\small)
+##
+## APS figure guidelines (journals.aps.org/authors/style-basics):
+##   - smallest capitals and numerals >= 2 mm high at final size
+##     (Times 9 pt -> 2.09 mm; 8 pt would give only 1.86 mm)
+##   - data points >= 1 mm in diameter, curves >= 0.18 mm (0.5 pt) wide
+##   - avoid small open symbols, shading and cross-hatching
+##   - color-online-only figures: colors with distinguishable grayscale
+##     values AND different line styles
+##   - axis labels as "Quantity (unit)": parentheses, not square brackets
+##   - powers of ten as superscripts, no computer "E" notation
+##   - panels labeled (a), (b), ...; text belongs in the caption
+##
+## Usage:
+##   import pubplotlib as pplt
+##   pplt.style.use('prd')
+##   fig, ax = pplt.subplots()               # single column
+##   fig, ax = pplt.subplots(twocols=True)   # double column
+##
+##   In LaTeX: \includegraphics[width=\columnwidth]{fig.pdf}
+##   (the saved file is exactly one column wide, so fonts are not rescaled)
+##
+
+## ---------- Math / text rendering ----------
+text.usetex:          False
+mathtext.fontset:     stix
+# text.usetex:        True
+# text.latex.preamble: \usepackage{amsmath}\usepackage{amssymb}
+
+## ---------- Fonts ----------
+## Physical Review is typeset in a Times-like face.
+font.family:  serif
+font.serif:   Times, Times New Roman, DejaVu Serif
+
+## 9 pt is the smallest size that keeps capitals and numerals above 2 mm.
+font.size:              10.0
+ytick.labelsize:         9.0
+xtick.labelsize:         9.0
+figure.titlesize:       10.0
+figure.labelsize:       10.0
+axes.labelsize:         10.0
+axes.titlesize:         10.0
+legend.fontsize:         9.0
+
+## ---------- Number formatting ----------
+## x10^n with superscripts instead of "1e5"; no additive offset on the axis.
+axes.formatter.use_mathtext:  True
+axes.formatter.useoffset:     False
+axes.formatter.limits:        -3, 4   # x10^n outside 1e-3 .. 1e4
+
+## ---------- Lines and markers ----------
+lines.linewidth:        1.25   # >= 0.5 pt
+lines.markersize:       4.0    # 4 pt = 1.41 mm, >= 1 mm
+axes.linewidth:         0.6
+
+## ---------- Legend ----------
+legend.frameon:       False
+legend.handlelength:  2.5    # long enough to show the dash pattern
+
+## ---------- Colour cycle (grayscale-safe) ----------
+## Black + Paul Tol "high contrast" (colour-blind safe). Grayscale lightness
+## L* = 0, 29, 50, 73, paired with distinct line styles so curves remain
+## distinguishable in black-and-white print.
+axes.prop_cycle: (cycler('color', ['000000', '004488', 'BB5566', 'DDAA33']) + cycler('linestyle', ['-', '--', ':', '-.']))
+
+## ---------- Ticks ----------
+## Physical Review convention: inward ticks on all four sides.
+xtick.top:              True
+xtick.bottom:           True
+ytick.left:             True
+ytick.right:            True
+xtick.minor.visible:    True
+ytick.minor.visible:    True
+xtick.direction:        in
+ytick.direction:        in
+xtick.major.size:       3.5
+xtick.minor.size:       1.75
+ytick.major.size:       3.5
+ytick.minor.size:       1.75
+xtick.major.width:      0.6
+xtick.minor.width:      0.5
+ytick.major.width:      0.6
+ytick.minor.width:      0.5
+
+## ---------- Images ----------
+image.origin:   lower
+
+## ---------- Layout ----------
+## Constrained layout with standard bbox keeps the saved file at the exact
+## column width, so the font sizes above are the printed sizes.
+figure.autolayout:              False
+figure.constrained_layout.use:  True
+
+## ---------- Saving ----------
+## APS lists PS/EPS as preferred; set savefig.format: eps if requested.
+savefig.bbox:       standard
+savefig.format:     pdf
+savefig.dpi:        600
+pdf.fonttype:       42   # embed TrueType fonts instead of Type 3
+ps.fonttype:        42

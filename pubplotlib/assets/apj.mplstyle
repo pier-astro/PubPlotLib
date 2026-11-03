@@ -1,37 +1,70 @@
-text.usetex: False
-mathtext.fontset: stixsans
-font.family: sans-serif
-font.sans-serif: Comic Sans MS
-ytick.labelsize: 9
-xtick.labelsize: 9
-figure.titlesize: 10
-figure.labelsize: 10
-axes.labelsize: 9
-axes.titlesize: 10
-axes.xmargin: 0
-legend.fontsize: 9
-legend.framealpha: 0.3
+##
+## Matplotlib style sheet for The Astrophysical Journal (ApJ / AAS Journals)
+##
+## Column widths  : single = 3.50 in (8.89 cm)
+##                  double = 7.10 in (18.03 cm)
+## Body text size : 10 pt  →  figure text should match body text
+## Caption size   : 10 pt  (same as body text in AAS layout)
+##
+## Usage:
+##   import matplotlib.pyplot as plt
+##   plt.style.use('apj.mplstyle')
+##
+##   Single-column figure : fig = plt.figure(figsize=(3.50, 2.625))
+##   Double-column figure : fig = plt.figure(figsize=(7.10, 3.50))
+##   (Aspect ratio 4:3 is a reasonable default; adjust as needed.)
+##
 
+## ---------- Math / text rendering ----------
+text.usetex:          False
+mathtext.fontset:     stix
+# text.usetex:        True
+# text.latex.preamble: \usepackage{amsmath}\usepackage{amssymb}
+
+## ---------- Fonts ----------
+font.family:  serif
+font.serif:   Times, Times New Roman, DejaVu Serif
+
+## ApJ body text is 10 pt; figure labels should match body text when printed
+## at column width.  Set base size to 10 pt.
+font.size:              10.0
+ytick.labelsize:         9.0
+xtick.labelsize:         9.0
+figure.titlesize:       10.0   # matches AAS body text (10 pt)
+figure.labelsize:        9.0
+axes.labelsize:          9.0
+axes.titlesize:         10.0
+legend.fontsize:         9.0
+
+## ---------- Legend ----------
+legend.framealpha:    0.3
+legend.fancybox:      False
+
+## ---------- Colour cycle (IBM colour-blind-safe palette) ----------
 axes.prop_cycle: cycler('color', ['648FFF', '785EF0', 'DC267F', 'FE6100', 'FFB000'])
 
-xtick.top: False
-xtick.bottom: True
-ytick.left: True
-ytick.right: False
-xtick.minor.visible: False
-ytick.minor.visible: False
-xtick.direction: out
-ytick.direction: out
-xtick.major.size: 3.5
-xtick.minor.size: 1.75
-ytick.major.size: 3.5
-ytick.minor.size: 1.75
+## ---------- Ticks ----------
+xtick.top:              False
+xtick.bottom:           True
+ytick.left:             True
+ytick.right:            False
+xtick.minor.visible:    False
+ytick.minor.visible:    False
+xtick.direction:        out
+ytick.direction:        out
+xtick.major.size:       3.5
+xtick.minor.size:       1.75
+ytick.major.size:       3.5
+ytick.minor.size:       1.75
 
-image.origin: lower
+## ---------- Images ----------
+image.origin:   lower
 
-figure.autolayout: True
+## ---------- Layout ----------
+figure.autolayout:  True
 
-savefig.bbox: tight # Default is standard
-savefig.format: pdf # Default is png
-savefig.dpi: 400 # Minimum is 300
-pdf.compression: 2 # Default is 3
+## ---------- Saving ----------
+savefig.bbox:       tight
+savefig.format:     pdf
+savefig.dpi:        300
+pdf.compression:    2

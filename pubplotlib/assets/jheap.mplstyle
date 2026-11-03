@@ -1,0 +1,74 @@
+##
+## Matplotlib style sheet for the Journal of High Energy Astrophysics (JHEAP)
+## Published by Elsevier  |  uses the elsarticle class
+##
+## Column widths  : single = 3.54 in (90 mm)
+##                  double = 7.48 in (190 mm)
+## Body text size : 10 pt (elsarticle default for two-column 5p option)
+## Caption size   : 9 pt  (Elsevier captions are typically one point smaller
+##                          than body text)
+## Min figure font: 7 pt at final printed size (Elsevier minimum is 6–8 pt)
+##
+## Usage:
+##   import matplotlib.pyplot as plt
+##   plt.style.use('jheap.mplstyle')
+##
+##   Single-column figure : fig = plt.figure(figsize=(3.54, 2.655))
+##   Double-column figure : fig = plt.figure(figsize=(7.48, 3.54))
+##   (Aspect ratio 4:3 is a reasonable default; adjust as needed.)
+##
+
+## ---------- Math / text rendering ----------
+text.usetex:          False
+mathtext.fontset:     stix
+# text.usetex:        True
+# text.latex.preamble: \usepackage{amsmath}\usepackage{amssymb}
+
+## ---------- Fonts ----------
+font.family:  serif
+font.serif:   Times, Times New Roman, DejaVu Serif
+
+## Elsevier/JHEAP body text is 10 pt in the final two-column layout.
+## Set base size to 9 pt so axis labels land at 8–9 pt after any minor
+## reduction — safely above the 6–7 pt Elsevier floor.
+font.size:              9.0
+ytick.labelsize:        8.0
+xtick.labelsize:        8.0
+figure.titlesize:       9.0    # caption-level size for JHEAP
+figure.labelsize:       8.0
+axes.labelsize:         8.0
+axes.titlesize:         9.0
+legend.fontsize:        7.0
+
+## ---------- Legend ----------
+legend.framealpha:    0.3
+legend.fancybox:      False
+
+## ---------- Colour cycle (IBM colour-blind-safe palette) ----------
+axes.prop_cycle: cycler('color', ['648FFF', '785EF0', 'DC267F', 'FE6100', 'FFB000'])
+
+## ---------- Ticks ----------
+xtick.top:              False
+xtick.bottom:           True
+ytick.left:             True
+ytick.right:            False
+xtick.minor.visible:    False
+ytick.minor.visible:    False
+xtick.direction:        out
+ytick.direction:        out
+xtick.major.size:       3.5
+xtick.minor.size:       1.75
+ytick.major.size:       3.5
+ytick.minor.size:       1.75
+
+## ---------- Images ----------
+image.origin:   lower
+
+## ---------- Layout ----------
+figure.autolayout:  True
+
+## ---------- Saving ----------
+savefig.bbox:       tight
+savefig.format:     pdf
+savefig.dpi:        300
+pdf.compression:    2
